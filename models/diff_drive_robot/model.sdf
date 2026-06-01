@@ -139,6 +139,63 @@
       </collision>
     </link>
 
+    <link name="lidar_link">
+      <pose>0.0 0 0.175 0 0 0</pose>
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <iyx>0</iyx>
+          <ixz>0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.05</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>1.0 0.0 0.0 1.0</ambient>
+          <diffuse>1.0 0.0 0.0 1.0</diffuse>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.05</radius>
+            <length>0.05</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <sensor name='gpu_lidar' type='gpu_lidar'>
+        <pose>0 0 0.025 0 0 0</pose>
+        <topic>scan</topic>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>640</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.141592</min_angle> <max_angle>3.141592</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.08</min>
+            <max>10.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+      </sensor>
+    </link>
+
     <joint name='left_wheel_joint' type='revolute'>
       <parent>chassis</parent>
       <child>left_wheel</child>
@@ -168,6 +225,11 @@
       <child>caster</child>
     </joint>
 
+    <joint name='lidar_joint' type='fixed'>
+      <parent>chassis</parent>
+      <child>lidar_link</child>
+    </joint>
+
     <plugin
       filename="gz-sim-diff-drive-system"
       name="gz::sim::systems::DiffDrive">
@@ -175,8 +237,12 @@
       <right_joint>right_wheel_joint</right_joint>
       <wheel_separation>0.36</wheel_separation>
       <wheel_radius>0.1</wheel_radius>
-      <odom_publish_frequency>1</odom_publish_frequency>
+      <odom_publish_frequency>20</odom_publish_frequency>
       <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+      <tf_topic>tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>chassis</child_frame_id>
     </plugin>
    </model>
 </sdf>

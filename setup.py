@@ -12,22 +12,19 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        # Include all launch files
-        (os.path.join('share' , package_name, 'launch'),glob(os.path.join('launch','*.[pxt][yma]*'))),
-        # Include all SDF files    
-        (os.path.join('share' , package_name, 'models','diff_drive_robot'),glob(os.path.join('models','diff_drive_robot','*'))),
-        # Include all Gazebo worlds
-        (os.path.join('share', package_name , 'worlds'),glob(os.path.join('worlds','*.sdf'))),
-         
-        
-
+        # Safely includes ALL launch files
+        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*'))),
+        # Safely includes ALL world assets
+        (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*'))),
+        # Safely includes ALL model subfolders and nested files
+        (os.path.join('share', package_name, 'models', 'diff_drive_robot'), glob(os.path.join('models', 'diff_drive_robot', '*'))),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='manju',
     maintainer_email='1ms23me043@msrit.edu',
     description='Differential drive robot simulation in Gazebo Harmonic',
-    license='Apache-2.0',
+    license='TODO: License declaration',
     extras_require={
         'test': [
             'pytest',

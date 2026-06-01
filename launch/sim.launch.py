@@ -4,6 +4,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
 
 def generate_launch_description():
     # 1. Locate our package deployment share directory
@@ -37,8 +38,23 @@ def generate_launch_description():
         launch_arguments={'gz_args': f'-r {world_path}'}.items()
     )
 
+    # AUTOMATED BRIDGE NODE
+    # Bridge /cmd_vel (inputs), /odom (odometry feedback), /scan (LIDAR rays), and /tf (frames)
+    ros_gz_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=[
+            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+            '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+            '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
+            '/tf@tf2_msgs/msg/TFmessage[gz.msgs.Pose_V'
+        ],
+        output='screen'
+    )
+
     # 5. Create and return the launch description
     return LaunchDescription([
         set_gz_resource_path,
-        gz_sim
+        gz_sim,
+        ros_gz_bridge
     ])
