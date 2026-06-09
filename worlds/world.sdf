@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
-  <world name="diff_drive_world">
+  <world name="default">
     <physics name="1ms" type="ignored">
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1.0</real_time_factor>
@@ -52,10 +52,5 @@
         </visual>
       </link>
     </model>
-
-    <include>
-      <uri>file:///home/manju/ros2_ws/install/my_robot/share/my_robot/models/diff_drive_robot/model.sdf</uri>
-      <pose>0 0 0.2 0 0 0</pose>
-    </include>
   </world>
 </sdf>

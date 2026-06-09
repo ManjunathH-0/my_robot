@@ -1,60 +1,85 @@
 import os
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.actions import ExecuteProcess, IncludeLaunchDescription, SetEnvironmentVariable, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+from launch_ros.actions import SetParameter
 
 def generate_launch_description():
-    # 1. Locate our package deployment share directory
     pkg_share = get_package_share_directory('my_robot')
+    world_path = '/home/manju/ros2_ws/src/my_robot/worlds/world.sdf'
+    urdf_file = '/home/manju/ros2_ws/src/my_robot/urdf/robot.urdf'
+    ekf_config = os.path.join(pkg_share, 'config', 'ekf.yaml')
+
+
+    with open(urdf_file, 'r') as infp:
+        robot_description_content = infp.read()
     
-    # 2. Define paths to our world file and model directory
-    world_path = os.path.join(pkg_share, 'worlds', 'world.sdf')
-
-    # We provide BOTH the Share directory and the explicit models directory path
-    models_path = pkg_share + ":" + os.path.join(pkg_share,'models')
-
-    #3. CRITICAL FOR GAZEBO HARMONIC: Tell Gazebo where to look for models.
-    # This appends our models directory to the native Gazebo resource path.
-    if 'GZ_SIM_RESOURCE_PATH' in os.environ:
-        gz_resource_path = os.environ['GZ_SIM_RESOURCE_PATH'] + ':' + models_path
-    else:
-        gz_resource_path = models_path
-
-    set_gz_resource_path = SetEnvironmentVariable(
-        name='GZ_SIM_RESOURCE_PATH',
-        value=gz_resource_path
-    )
-
-    # 4. Include the native Gazebo Sim launch file
-    # This brings up the Gazebo Harmonic server and client GUI
-    gz_sim_share = get_package_share_directory('ros_gz_sim')
-    gz_sim = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(gz_sim_share, 'launch', 'gz_sim.launch.py')
-        ),
-        launch_arguments={'gz_args': f'-r {world_path}'}.items()
-    )
-
-    # AUTOMATED BRIDGE NODE
-    # Bridge /cmd_vel (inputs), /odom (odometry feedback), /scan (LIDAR rays), and /tf (frames)
-    ros_gz_bridge = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        arguments=[
-            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
-            '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
-            '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
-            '/tf@tf2_msgs/msg/TFmessage[gz.msgs.Pose_V'
+    # Define Nodes
+    robot_state_publisher_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        parameters=[
+            {'robot_description': robot_description_content},
+            {'use_sim_time': True}  # Force it here
         ],
-        output='screen'
+        # Add this to ensure it picks up the global parameter
+        arguments=['--ros-args', '-p', 'use_sim_time:=true'] 
     )
 
-    # 5. Create and return the launch description
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        parameters=[{'use_sim_time': True}]
+    )
+
+    
+        
     return LaunchDescription([
-        set_gz_resource_path,
-        gz_sim,
-        ros_gz_bridge
+        DeclareLaunchArgument('use_sim_time', default_value='true'),
+        SetParameter(name='use_sim_time', value=True),
+        
+        # 1. Gazebo Server
+        ExecuteProcess(cmd=['gz', 'sim', '-r', world_path], output='screen'),
+
+        # 2. State Publishers (Start these early!)
+        robot_state_publisher_node,
+        joint_state_publisher_node,
+
+        # 3. Bridge (Essential to pass /tf and /scan)
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            parameters=[{'use_sim_time': True}],
+            arguments=[
+                '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+                '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
+                '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+                '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                '/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V'
+            ],
+            remappings=[('/model/diff_drive_robot/tf', '/tf')],
+            output='screen'
+        ),
+
+        # 4. EKF Node (Only ONE instance)
+        Node(
+            package='robot_localization',
+            executable='ekf_node',
+            name='ekf_filter_node',
+            parameters=[ekf_config, {'use_sim_time': True}],
+            output='screen'
+        ),
+
+        
+
+        # 5. Spawner (Last)
+        Node(
+            package='ros_gz_sim',
+            executable='create',
+            arguments=['-topic', '/robot_description', '-name', 'diff_drive_robot'],
+            output='screen'
+        )
     ])

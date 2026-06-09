@@ -1,10 +1,15 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
   <model name='diff_drive_robot'>
-    <pose>0 0 0.325 0 0 0</pose>
 
+    <link name="base_link"/>
+
+    <joint name="base_link_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>chassis</child>
+    </joint>
     <link name='chassis'>
-      <pose>-0.1 0 0.075 0 0 0</pose>
+      <pose>0 0 0.15 0 0 0</pose>
       <inertial>
         <mass>1.14395</mass>
         <inertia>
@@ -37,7 +42,7 @@
     </link>
 
     <link name='left_wheel'>
-      <pose>0 0.18 -0.05 -1.5707 0 0</pose>
+      <pose>0 0.18 0.1 -1.5707 0 0</pose>
       <inertial>
         <mass>2</mass>
         <inertia>
@@ -72,7 +77,7 @@
     </link>
 
     <link name='right_wheel'>
-      <pose>0 -0.18 -0.05 -1.5707 0 0</pose>
+      <pose>0 -0.18 0.1 -1.5707 0 0</pose>
       <inertial>
         <mass>2</mass>
         <inertia>
@@ -107,7 +112,7 @@
     </link>
 
     <link name='caster'>
-      <pose>-0.25 0 -0.1 0 0 0</pose>
+      <pose>-0.2 0 0.05 0 0 0</pose>
       <inertial>
         <mass>1</mass>
         <inertia>
@@ -139,13 +144,13 @@
       </collision>
     </link>
 
-    <link name="lidar_link">
-      <pose>0.0 0 0.175 0 0 0</pose>
+    <link name='lidar_link'>
+      <pose>0.0 0 0.25 0 0 0</pose>
       <inertial>
         <mass>0.1</mass>
         <inertia>
           <ixx>0.0001</ixx>
-          <iyx>0</iyx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
           <iyy>0.0001</iyy>
           <iyz>0</iyz>
@@ -172,27 +177,21 @@
           </cylinder>
         </geometry>
       </collision>
-
-      <sensor name='gpu_lidar' type='gpu_lidar'>
-        <pose>0 0 0.025 0 0 0</pose>
-        <topic>scan</topic>
+      <sensor name="lidar" type="ray">
+        <always_on>true</always_on>
+        <visualize>false</visualize>
         <update_rate>10</update_rate>
+        <topic>scan</topic>
         <ray>
           <scan>
             <horizontal>
-              <samples>640</samples>
+              <samples>360</samples>
               <resolution>1</resolution>
-              <min_angle>-3.141592</min_angle> <max_angle>3.141592</max_angle>
+              <min_angle>-3.14</min_angle>
+              <max_angle>3.14</max_angle>
             </horizontal>
           </scan>
-          <range>
-            <min>0.08</min>
-            <max>10.0</max>
-            <resolution>0.01</resolution>
-          </range>
         </ray>
-        <always_on>1</always_on>
-        <visualize>true</visualize>
       </sensor>
     </link>
 
@@ -220,7 +219,7 @@
       </axis>
     </joint>
 
-    <joint name='caster_joint' type='ball'>
+    <joint name='caster_joint' type='fixed'>
       <parent>chassis</parent>
       <child>caster</child>
     </joint>
@@ -230,19 +229,29 @@
       <child>lidar_link</child>
     </joint>
 
-    <plugin
-      filename="gz-sim-diff-drive-system"
-      name="gz::sim::systems::DiffDrive">
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
       <left_joint>left_wheel_joint</left_joint>
       <right_joint>right_wheel_joint</right_joint>
       <wheel_separation>0.36</wheel_separation>
       <wheel_radius>0.1</wheel_radius>
-      <odom_publish_frequency>20</odom_publish_frequency>
-      <topic>cmd_vel</topic>
-      <odom_topic>odom</odom_topic>
-      <tf_topic>tf</tf_topic>
+      
       <frame_id>odom</frame_id>
-      <child_frame_id>chassis</child_frame_id>
+      <child_frame_id>base_link</child_frame_id>
+      
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_tf>true</publish_tf>
+      
+      <odom_topic>odom</odom_topic>
+      <odom_base_frame>base_link</odom_base_frame> <tf_topic>/tf</tf_topic>
     </plugin>
-   </model>
+
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <topic>joint_states</topic>
+    </plugin>
+
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre</render_engine>
+    </plugin>
+  </model>
 </sdf>

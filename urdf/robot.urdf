@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<robot name="diff_drive_robot">
+
+  <link name="base_link"/>
+
+  <link name="chassis">
+    <visual>
+      <origin xyz="0 0 0.075" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.4 0.3 0.15"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.175" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.4 0.3 0.15"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.14395"/>
+      <inertia ixx="0.126164" ixy="0" ixz="0" iyy="0.416519" iyz="0" izz="0.481014"/>
+    </inertial>
+  </link>
+
+  <link name="left_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="-1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="-1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.00524052" ixy="0" ixz="0" iyy="0.00524052" iyz="0" izz="0.009025"/>
+    </inertial>
+  </link>
+
+  <link name="right_wheel">
+    <visual>
+      <origin xyz="0 0 0" rpy="-1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="-1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.00524052" ixy="0" ixz="0" iyy="0.00524052" iyz="0" izz="0.009025"/>
+    </inertial>
+  </link>
+
+  <link name="caster">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <link name="diff_drive_robot/base_link/lidar">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- joint name="odom_joint" type="fixed">
+    <parent link="odom"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.1"/>
+  </joint -->
+
+  <joint name="base_link_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0 0 0.1"/> 
+  </joint>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="left_wheel"/>
+    <origin xyz="0.08 0.18 0" rpy="0 0 0"/> 
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="right_wheel"/>
+    <origin xyz="0.08 -0.18 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="caster_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="caster"/>
+    <origin xyz="-0.2 0 -0.05"/>
+  </joint>
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="diff_drive_robot/base_link/lidar"/>
+    <origin xyz="0 0 0.175"/>
+  </joint>
+
+  <gazebo reference="diff_drive_robot/base_link/lidar">
+    <preserveFixedJoint>true</preserveFixedJoint>
+  <sensor name="lidar" type="gpu_lidar">
+    <topic>scan</topic>
+    <always_on>true</always_on>
+    <update_rate>10</update_rate>
+    <visualize>true</visualize>
+    <ray>
+      <scan>
+        <horizontal>
+          <samples>360</samples>
+          <resolution>1</resolution>
+          <min_angle>-3.14159</min_angle>
+          <max_angle>3.14159</max_angle>
+        </horizontal>
+      </scan>
+      <range>
+        <min>0.1</min>
+        <max>10.0</max>
+      </range>
+    </ray>
+  </sensor>
+</gazebo>
+
+<plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+    <render_engine>ogre</render_engine>
+</plugin>
+<gazebo>
+  <plugin 
+    filename="gz-sim8-diff-drive-system"
+    name="gz::sim::systems::DiffDrive">
+    <ros>
+      <remapping>odom:=</remapping>
+    </ros>
+    
+    <topic>cmd_vel</topic>
+    <publish_odom>true</publish_odom>
+    <publish_odom_tf>true</publish_odom_tf>
+    <odometry_frame>odom</odometry_frame>
+    <robot_base_frame>base_link</robot_base_frame>
+    <left_joint>left_wheel_joint</left_joint>
+    <right_joint>right_wheel_joint</right_joint>
+    <wheel_separation>0.36</wheel_separation> 
+    <wheel_radius>0.1</wheel_radius>
+    
+    <odom_topic>odom</odom_topic>
+    <odom_publisher_frequency>20</odom_publisher_frequency>
+    <tf_topic>/tf</tf_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_link</child_frame_id>
+    <publish_tf>false</publish_tf> 
+
+    <publish_wheel_tf>false</publish_wheel_tf>
+  </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="gz::sim::systems::PosePublisher" 
+            filename="gz-sim-pose-publisher-system">
+      <publish_link_pose>false</publish_link_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_update_frequency>50</static_update_frequency>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="gz-sim8-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
+            <topic>/model/diff_drive_robot/model</topic>
+            <joint_name>left_wheel_joint</joint_name>
+            <joint_name>right_wheel_joint</joint_name>
+            <model_name>diff_drive_robot</model_name>
+    </plugin>
+  </gazebo>
+
+  <!-- gazebo>
+    <plugin filename="gz-sim8-robot-state-publisher-system"
+            name="gz::sim::systems::robotStatePublisher">
+            <topic>/model/diff_drive_robot/model</topic>
+            <joint_name>left_wheel_joint</joint_name>
+            <joint_name>right_wheel_joint</joint_name>
+            <model_name>diff_drive_robot</model_name>
+    </plugin>
+  </gazebo -->
+
+  
+</robot>
+    
+
+    
+    
+   
+
+    
+  
