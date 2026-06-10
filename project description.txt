@@ -1,0 +1,18 @@
+Here are a few options for your resume, depending on how much space you have:
+
+### Option 1: Professional & Impact-Focused (Recommended)
+
+**Autonomous Mobile Robot Navigation System**
+Designed and implemented a ROS 2-based differential drive robot, integrating LiDAR sensors and custom URDF models. Resolved complex time-synchronization issues to enable real-time SLAM and deployed the Nav2 stack for autonomous obstacle-avoidance and point-to-point path planning.
+
+### Option 2: Concise (Best if you are short on space)
+
+**ROS 2 Autonomous Navigation Robot**
+Built a simulated differential drive robot using ROS 2 and Gazebo. Developed a full pipeline for mapping (SLAM) and autonomous navigation, utilizing custom sensor integration and path-planning algorithms to achieve obstacle-free environment traversal.
+
+### Option 3: Technical-Centric (Highlights the "How")
+
+**Robotic SLAM & Autonomous Navigation Project**
+Engineered an autonomous system in ROS 2 Jazzy, utilizing `slam_toolbox` for environmental mapping and `nav2` for real-time localization and path planning. Debugged system-level TF transform and clock latency issues to ensure stable robot localization in simulated environments.
+
+

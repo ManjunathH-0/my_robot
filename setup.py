@@ -12,6 +12,7 @@ setup(
         ('share/ament_index/resource_index/packages', ['resource/my_robot']),
         ('share/my_robot', ['package.xml']),
         # Ensure these lines exist:
+        (os.path.join('share', package_name, 'worlds'), glob('worlds/*')), #added extra for new world
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*.urdf')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
