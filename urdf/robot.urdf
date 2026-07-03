@@ -1,4 +1,4 @@
-<!-- ?xml version="1.0"? -->
+<?xml version="1.0"?>
 <robot name="diff_drive_robot">
 
   <link name="base_link"/>
@@ -222,6 +222,9 @@
     <odom_topic>/odom</odom_topic>
     <topic>/odom</topic>
     <odom_publisher_frequency>30</odom_publisher_frequency>
+    <odom_topic>odom</odom_topic>
+    <odom_publisher_frequency>20</odom_publisher_frequency>
+
     <tf_topic>/tf</tf_topic>
     <frame_id>odom</frame_id>
     <child_frame_id>base_link</child_frame_id>
@@ -241,6 +244,7 @@
   </gazebo>
 
   <gazebo>
+
     <plugin filename="gz-sim8-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
         <update_rate>15.0</update_rate> <!-- Dropped to 15Hz to save more CPU/RAM -->
         
@@ -262,17 +266,14 @@
   </plugin>
   </gazebo>
 
-
-
-  <!-- gazebo>
-    <plugin filename="gz-sim8-robot-state-publisher-system"
-            name="gz::sim::systems::robotStatePublisher">
+    <plugin filename="gz-sim8-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
             <topic>/model/diff_drive_robot/model</topic>
             <joint_name>left_wheel_joint</joint_name>
             <joint_name>right_wheel_joint</joint_name>
             <model_name>diff_drive_robot</model_name>
     </plugin>
-  </gazebo -->
+  </gazebo>
 
   
 </robot>

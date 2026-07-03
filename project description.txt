@@ -15,6 +15,7 @@ Built a simulated differential drive robot using ROS 2 and Gazebo. Developed a f
 **Robotic SLAM & Autonomous Navigation Project**
 Engineered an autonomous system in ROS 2 Jazzy, utilizing `slam_toolbox` for environmental mapping and `nav2` for real-time localization and path planning. Debugged system-level TF transform and clock latency issues to ensure stable robot localization in simulated environments.
 
+<<<<<<< HEAD
 Project Title Options (Choose One)Autonomous Mobile Robot (AMR) Navigation & Simulation PipelineROS 2 Autonomous Warehouse Mapping & Inspection Vehicle
 
 
@@ -24,3 +25,6 @@ Project Title Options (Choose One)Autonomous Mobile Robot (AMR) Navigation & Sim
 Technologies Used: ROS 2 (Jazzy Jalisco), Gazebo Sim (Harmonic), Nav2, SLAM Toolbox, Linux (Ubuntu), Git/GitHub, URDF/Xacro, Python, TF2 Transform Utilities.
 
 Developed a fully integrated ROS 2 Jazzy and Gazebo Sim autonomous warehouse robot pipeline featuring SLAM Toolbox mapping and Nav2 path planning. Engineered custom URDF sensor links and optimized localization frames using the Regulated Pure Pursuit controller to eliminate timing lags and enable smooth, multi-point waypoint patrolling.
+=======
+
+>>>>>>> 21594f269f6b1b31f921829eadd9233e6cd56a56

@@ -5,6 +5,9 @@ log/
 __pycahe__/
 *.pyc
 .vscode/
+<<<<<<< HEAD
 .gv/
 .pdf/
 .txt/
+=======
+>>>>>>> 21594f269f6b1b31f921829eadd9233e6cd56a56

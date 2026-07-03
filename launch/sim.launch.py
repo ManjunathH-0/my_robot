@@ -23,8 +23,11 @@ def generate_launch_description():
         executable='robot_state_publisher',
         parameters=[
             {'robot_description': robot_description_content},
+
             {'use_sim_time': True},
-            {'publish_frequency': 20.0}
+            {'publish_frequency': 20.0},
+
+            {'use_sim_time': True}
         ],
         arguments=['--ros-args', '-p', 'use_sim_time:=true'] 
     )
@@ -32,9 +35,7 @@ def generate_launch_description():
     # joint_state_publisher_node = Node(
     #     package='joint_state_publisher',
     #     executable='joint_state_publisher',
-    #     parameters=[{
-    #         'use_sim_time': True,
-    #         'rate': 5.0}]
+    #     parameters=[{'use_sim_time': True}]
     # )
 
     # Official ros_gz_sim launcher - handles world loading correctly alone
@@ -72,24 +73,8 @@ def generate_launch_description():
         
         # 1. State Publishers 
         robot_state_publisher_node,
-      #  joint_state_publisher_node,
-
-        
-        # # FIX: Manually inject the missing odom -> base_link transform link
-        # Node(
-        #     package='tf2_ros',
-        #     executable='static_transform_publisher',
-        #     name='static_tf_odom_to_base_link',
-        #     arguments=[
-        #         '0', '0', '0',      # X, Y, Z translation (set to 0 to overlap perfectly)
-        #         '0', '0', '0',      # Roll, Pitch, Yaw rotation
-        #         'odom',             # Parent Frame Name
-        #         'base_link'         # Child Frame Name
-        #     ],
-        #     parameters=[{'use_sim_time': True}],
-        #     output='screen'
-        # ),
-
+       #joint_stste_publisher_node, 
+  
         
         # 2. Gazebo (ONLY launch this official wrapper instance!)
         gazebo,
@@ -106,10 +91,15 @@ def generate_launch_description():
                 '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
                 '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
                 '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+
                # '/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
                 '/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image',
                 '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
                 '/joint_states@sensor_msgs/msg/JointState[gz.msgs.ModelV', 
+                '/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
+                '/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image',
+                '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
+
             ],
             remappings=[('/model/diff_drive_robot/tf', '/tf')],
             output='screen'
