@@ -1,0 +1,10 @@
+build/
+install/
+log/
+.pytest_cache/
+__pycahe__/
+*.pyc
+.vscode/
+.gv/
+.pdf/
+.txt/
