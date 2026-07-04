@@ -10,8 +10,8 @@ def generate_launch_description():
     pkg_share = get_package_share_directory('my_robot')
     
     # Point directly to your custom world file
-    world_path = '/home/manju/ros2_ws/src/my_robot/worlds/sample_world.world'
-    urdf_file = '/home/manju/ros2_ws/src/my_robot/urdf/robot.urdf'
+    world_path = os.path.join(pkg_share, 'worlds', 'sample_world.world')
+    urdf_file = os.path.join(pkg_share, 'urdf','robot.urdf')
     ekf_config = os.path.join(pkg_share, 'config', 'ekf.yaml')
 
     with open(urdf_file, 'r') as infp:
@@ -28,21 +28,7 @@ def generate_launch_description():
             {'publish_frequency': 20.0},
         ],
         output='screen'
-        #arguments=['--ros-args', '-p', 'use_sim_time:=true'] 
     )
-
-    # slam_toolbox = IncludeLaunchDescription(
-    # PythonLaunchDescriptionSource([
-    #     os.path.join(get_package_share_directory('slam_toolbox'), 'launch', 'online_async_launch.py')
-    # ]),
-    # launch_arguments={'use_sim_time': 'true'}.items()
-    # )
-
-    # joint_state_publisher_node = Node(
-    #     package='joint_state_publisher',
-    #     executable='joint_state_publisher',
-    #     parameters=[{'use_sim_time': True}]
-    # )
 
     # Official ros_gz_sim launcher - handles world loading correctly alone
     gazebo = IncludeLaunchDescription(
@@ -56,21 +42,20 @@ def generate_launch_description():
 
         # Locate the official Nav2 bringup directory
     nav2_bringup_dir = get_package_share_directory('nav2_bringup')
+    nav2_params_file = os.path.join(pkg_share, 'config','nav2_params.yaml')
     
     # Declare the nested Nav2 launch execution block
+    # 2. Update the IncludeLaunchDescription
     nav2_navigation = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            os.path.join(nav2_bringup_dir, 'launch', 'bringup_launch.py')
+        os.path.join(nav2_bringup_dir, 'launch', 'bringup_launch.py')
         ]),
         launch_arguments={
             'use_sim_time': 'true',
             'autostart': 'true',
-            # Route straight to your saved static warehouse map asset
-            #'map': '/home/manju/ros2_ws/src/my_robot/maps/my_gazebo_map.yaml',
-            # Route straight to your custom, optimized parameter tuning file
-            'params_file': '/home/manju/ros2_ws/src/my_robot/config/nav2_params.yaml',
+            'params_file': nav2_params_file, # Use the variable here
             'slam': 'True',
-        }.items()
+            }.items()
     )
 
         
@@ -100,8 +85,6 @@ def generate_launch_description():
                 '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
                 '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
                 '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
-
-                #'/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
                 '/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image',
                 '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
                 '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model', 
