@@ -92,22 +92,32 @@ rviz2
 
 
 ## 4.Node and Topic Architecture
+## 4. Node and Topic Architecture
 
- ┌──────────────┐             /scan              ┌──────────────┐
- │  Gazebo Sim  ├───────────────────────────────►│ SLAM Toolbox │
- └──────┬───────┘                                └──────┬───────┘
-        │ /odom                                         │
-        ▼                                               │ /map -> /tf
- ┌──────────────┐           /tf (odom->base_link)       ▼
- │   EKF Node   ├───────────────────────────────►┌──────────────┐
- └──────────────┘                                │  Nav2 Stack  │
-                                                 └──────┬───────┘
-                                                        │
-                                                        │ /cmd_vel
-                                                        ▼
-                                                 ┌──────────────┐
-                                                 │  Robot Base  │
-                                                 └──────────────┘
+```mermaid
+graph TD
+    %% Define Nodes and Styling
+    GZ[Gazebo Sim Engine]:::gazebo
+    SLAM[SLAM Toolbox Node]:::slam
+    EKF[robot_localization EKF]:::ekf
+    NAV2[Nav2 Autonomy Stack]:::nav2
+    BASE[Robot Hardware Base]:::base
+
+    %% Establish Topic Relationships
+    GZ -- "/scan (LaserScan)" --> SLAM
+    GZ -- "/odom (Odometry)" --> EKF
+    EKF -- "/tf (odom -> base_link)" --> NAV2
+    SLAM -- "/map & /tf (map -> odom)" --> NAV2
+    NAV2 -- "/cmd_vel (Twist)" --> BASE
+
+    %% Assign Color Schemes
+    classDef gazebo fill:#ff9900,stroke:#333,stroke-width:2px,color:#000;
+    classDef slam fill:#4a90e2,stroke:#333,stroke-width:2px,color:#white;
+    classDef ekf fill:#50e3c2,stroke:#333,stroke-width:2px,color:#000;
+    classDef nav2 fill:#7ed321,stroke:#333,stroke-width:2px,color:#000;
+    classDef base fill:#9b51e0,stroke:#333,stroke-width:2px,color:#white;
+```
+
 ## 5.Project overview
 ##  Key Project Features
 
