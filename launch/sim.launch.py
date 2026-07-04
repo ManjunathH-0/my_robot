@@ -26,11 +26,17 @@ def generate_launch_description():
 
             {'use_sim_time': True},
             {'publish_frequency': 20.0},
-
-            {'use_sim_time': True}
         ],
-        arguments=['--ros-args', '-p', 'use_sim_time:=true'] 
+        output='screen'
+        #arguments=['--ros-args', '-p', 'use_sim_time:=true'] 
     )
+
+    # slam_toolbox = IncludeLaunchDescription(
+    # PythonLaunchDescriptionSource([
+    #     os.path.join(get_package_share_directory('slam_toolbox'), 'launch', 'online_async_launch.py')
+    # ]),
+    # launch_arguments={'use_sim_time': 'true'}.items()
+    # )
 
     # joint_state_publisher_node = Node(
     #     package='joint_state_publisher',
@@ -60,9 +66,10 @@ def generate_launch_description():
             'use_sim_time': 'true',
             'autostart': 'true',
             # Route straight to your saved static warehouse map asset
-            'map': '/home/manju/ros2_ws/src/my_robot/maps/my_gazebo_map.yaml',
+            #'map': '/home/manju/ros2_ws/src/my_robot/maps/my_gazebo_map.yaml',
             # Route straight to your custom, optimized parameter tuning file
-            'params_file': '/home/manju/ros2_ws/src/my_robot/config/nav2_params.yaml'
+            'params_file': '/home/manju/ros2_ws/src/my_robot/config/nav2_params.yaml',
+            'slam': 'True',
         }.items()
     )
 
@@ -78,8 +85,10 @@ def generate_launch_description():
         
         # 2. Gazebo (ONLY launch this official wrapper instance!)
         gazebo,
-
+        
+        # Navigation & Mapping Array
         nav2_navigation,
+
 
         # 3. Bridge (Essential to pass /tf and /scan)
         Node(
@@ -92,13 +101,11 @@ def generate_launch_description():
                 '/odom@nav_msgs/msg/Odometry[gz.msgs.Odometry',
                 '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
 
-               # '/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
+                #'/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
                 '/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image',
                 '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
-                '/joint_states@sensor_msgs/msg/JointState[gz.msgs.ModelV', 
+                '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model', 
                 '/model/diff_drive_robot/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
-                '/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image',
-                '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo'
 
             ],
             remappings=[('/model/diff_drive_robot/tf', '/tf')],

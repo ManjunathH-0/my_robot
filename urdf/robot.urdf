@@ -266,8 +266,11 @@
   </plugin>
   </gazebo>
 
+  <gazebo>
+
     <plugin filename="gz-sim8-joint-state-publisher-system"
             name="gz::sim::systems::JointStatePublisher">
+            <update_rate>15.0</update_rate>
             <topic>/model/diff_drive_robot/model</topic>
             <joint_name>left_wheel_joint</joint_name>
             <joint_name>right_wheel_joint</joint_name>
