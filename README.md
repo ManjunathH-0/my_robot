@@ -9,7 +9,7 @@ A complete, production-grade autonomous navigation and active SLAM mapping pipel
 
 ---
 
-## 📺 Navigation & Active SLAM Demonstration
+##  Navigation & Active SLAM Demonstration
 
 As the robot executes dynamic paths inside the warehouse layout, **SLAM Toolbox** maps unknown territory in real time, while **Nav2** runs local obstacle avoidance loops:
 
@@ -17,7 +17,7 @@ As the robot executes dynamic paths inside the warehouse layout, **SLAM Toolbox*
 
 ---
 
-## 📊 Proven Hardware Performance Metrics
+##  Proven Hardware Performance Metrics
 
 During initial deployment, the simulation environment experienced extreme communication bottlenecks due to high-frequency sensor floods. The following optimizations were systematically profiled and resolved:
 
@@ -28,7 +28,7 @@ During initial deployment, the simulation environment experienced extreme commun
 
 ---
 
-## 🗺️ System Frame Architecture (TF2 Tree)
+##  System Frame Architecture (TF2 Tree)
 
 The coordinate transformations are fused cleanly via an Extended Kalman Filter (**EKF**) node, providing a fully dynamic, synchronized, and time-incrementing transform tree with zero frame drops:
 
@@ -48,7 +48,7 @@ base_link (Robot Physical Center)
 
 ---
 
-## 🛠️ Installation & Dependencies
+##  Installation & Dependencies
 
 Ensure you have a fully working installation of **ROS 2 Jazzy** on **Ubuntu 24.04** before building.
 
@@ -67,7 +67,7 @@ source install/setup.bash
 
 ---
 
-## 🚀 How to Run the Navigation & Mapping Stack
+##  How to Run the Navigation & Mapping Stack
 
 ### 1. Clear Local System Cache (Recommended for Memory Clearance)
 ```bash
@@ -88,4 +88,52 @@ rviz2
 * **Fixed Frame Configuration**: Type `map` directly inside the **Fixed Frame** parameter input box under Global Options.
 * **Add Display Monitors**: Add the **Map** layer (Topic: `/map`), **LaserScan** layer (Topic: `/scan`), and **Path** layer (Topic: `/plan`).
 * **Commanding the AMR**: Click the **Nav2 Goal** button on the top toolbar panel, choose any location on the blank grid canvas, drag your target direction arrow, and watch the robot map out the walls autonomously!
+
+
+
+## 4.Node and Topic Architecture
+
+ ┌──────────────┐             /scan              ┌──────────────┐
+ │  Gazebo Sim  ├───────────────────────────────►│ SLAM Toolbox │
+ └──────┬───────┘                                └──────┬───────┘
+        │ /odom                                         │
+        ▼                                               │ /map -> /tf
+ ┌──────────────┐           /tf (odom->base_link)       ▼
+ │   EKF Node   ├───────────────────────────────►┌──────────────┐
+ └──────────────┘                                │  Nav2 Stack  │
+                                                 └──────┬───────┘
+                                                        │
+                                                        │ /cmd_vel
+                                                        ▼
+                                                 ┌──────────────┐
+                                                 │  Robot Base  │
+                                                 └──────────────┘
+## 5.Project overview
+##  Key Project Features
+
+*  **Full Autonomy Stack:** Complete integration of Nav2 path planners and local controllers.
+*  **Active Mapping:** Real-time loop closure and map generation using asynchronous SLAM Toolbox.
+*  **State Estimation:** Robust odometry noise filtering via an Extended Kalman Filter (EKF).
+*  **Low-Overhead Compute:** Configured with throttled C++ plugins to prevent CPU/RAM memory leaks.
+*  **Dynamic Safety:** Costmap inflation layers tailored to prevent tight-space collisions.
+
+
+## 6. Repository Directory Structure
+
+##  Repository Directory Structure
+
+```text
+my_robot/
+├── config/                  # EKF, SLAM, and Nav2 parameter calibration profiles
+├── doc/                     # Hardware profiling and transform architecture sheets
+├── launch/                  # Dynamic execution entrypoints (Master: sim.launch.py)
+├── maps/                    # Occupancy grid assets used for localization baselines
+├── media/                   # Embedded simulation validation runs & demonstrations
+├── models/                  # Gazebo simulation physics and description meshes
+├── rviz/                    # Preconfigured RViz2 layout view panels (nav2_view.rviz)
+├── urdf/                    # Physical AMR kinematics joint and link definitions
+└── worlds/                  # Target simulated testing environments (sample_world.world)
+```
+
+
 
