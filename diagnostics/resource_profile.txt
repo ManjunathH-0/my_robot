@@ -1,0 +1,184 @@
+Linux 6.17.0-35-generic (manju-ThinkPad-L380) 	07/05/2026 	_x86_64_	(8 CPU)
+
+03:24:18 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:19 PM  1000      6696   25.71    5.71    0.00   11.43   31.43     4  rviz2
+
+03:24:19 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:20 PM  1000      6696   26.00    2.00    0.00    6.00   28.00     1  rviz2
+
+03:24:20 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:21 PM  1000      6696   23.00    3.00    0.00    8.00   26.00     3  rviz2
+
+03:24:21 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:22 PM  1000      6696   30.00    1.00    0.00    9.00   31.00     3  rviz2
+
+03:24:22 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:23 PM  1000      6696   27.00    2.00    0.00    6.00   29.00     1  rviz2
+
+03:24:23 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:24 PM  1000      6696   29.00    2.00    0.00    5.00   31.00     0  rviz2
+
+03:24:24 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:25 PM  1000      6696   28.00    2.00    0.00    7.00   30.00     2  rviz2
+
+03:24:25 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:26 PM  1000      6696   29.00    2.00    0.00    5.00   31.00     6  rviz2
+
+03:24:26 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:27 PM  1000      6696   28.00    2.00    0.00    4.00   30.00     6  rviz2
+
+03:24:27 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:28 PM  1000      6696   28.00    3.00    0.00    6.00   31.00     2  rviz2
+
+03:24:28 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:29 PM  1000      6696   26.00    2.00    0.00    5.00   28.00     0  rviz2
+
+03:24:29 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:30 PM  1000      6696   29.00    3.00    0.00    5.00   32.00     0  rviz2
+
+03:24:30 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:31 PM  1000      6696   29.00    3.00    0.00    4.00   32.00     2  rviz2
+
+03:24:31 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:32 PM  1000      6696   26.73    2.97    0.00    4.95   29.70     6  rviz2
+
+03:24:32 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:33 PM  1000      6696   27.00    3.00    0.00    6.00   30.00     0  rviz2
+
+03:24:33 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:34 PM  1000      6696   29.00    4.00    0.00    8.00   33.00     2  rviz2
+
+03:24:34 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:35 PM  1000      6696   27.00    2.00    0.00    6.00   29.00     2  rviz2
+
+03:24:35 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:36 PM  1000      6696   26.00    2.00    0.00    6.00   28.00     1  rviz2
+
+03:24:36 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:37 PM  1000      6696   25.00    3.00    0.00    6.00   28.00     1  rviz2
+
+03:24:37 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:38 PM  1000      6696   26.00    2.00    0.00    5.00   28.00     1  rviz2
+
+03:24:38 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:39 PM  1000      6696   27.00    3.00    0.00    5.00   30.00     4  rviz2
+
+03:24:39 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:40 PM  1000      6696   25.00    3.00    0.00    6.00   28.00     0  rviz2
+
+03:24:40 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:41 PM  1000      6696   26.00    1.00    0.00    6.00   27.00     2  rviz2
+
+03:24:41 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:42 PM  1000      6696   24.00    2.00    0.00    7.00   26.00     3  rviz2
+
+03:24:42 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:43 PM  1000      6696   26.00    2.00    0.00    6.00   28.00     2  rviz2
+
+03:24:43 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:44 PM  1000      6696   23.00    3.00    0.00    9.00   26.00     5  rviz2
+
+03:24:44 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:45 PM  1000      6696   27.00    2.00    0.00    6.00   29.00     2  rviz2
+
+03:24:45 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:46 PM  1000      6696   25.00    3.00    0.00    3.00   28.00     7  rviz2
+
+03:24:46 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:47 PM  1000      6696   28.00    1.00    0.00    6.00   29.00     4  rviz2
+
+03:24:47 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:48 PM  1000      6696   27.00    2.00    0.00    3.00   29.00     2  rviz2
+
+03:24:48 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:49 PM  1000      6696   26.00    3.00    0.00    5.00   29.00     6  rviz2
+
+03:24:49 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:50 PM  1000      6696   27.00    1.00    0.00    6.00   28.00     3  rviz2
+
+03:24:50 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:51 PM  1000      6696   27.00    3.00    0.00    6.00   30.00     6  rviz2
+
+03:24:51 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:52 PM  1000      6696   24.00    2.00    0.00    7.00   26.00     4  rviz2
+
+03:24:52 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:53 PM  1000      6696   27.00    2.00    0.00    5.00   29.00     0  rviz2
+
+03:24:53 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:54 PM  1000      6696   24.00    3.00    0.00    4.00   27.00     0  rviz2
+
+03:24:54 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:55 PM  1000      6696   28.00    1.00    0.00    5.00   29.00     3  rviz2
+
+03:24:55 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:56 PM  1000      6696   29.00    1.00    0.00    6.00   30.00     6  rviz2
+
+03:24:56 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:57 PM  1000      6696   24.00    3.00    0.00    5.00   27.00     3  rviz2
+
+03:24:57 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:58 PM  1000      6696   28.00    2.00    0.00    4.00   30.00     4  rviz2
+
+03:24:58 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:24:59 PM  1000      6696   26.00    3.00    0.00    5.00   29.00     4  rviz2
+
+03:24:59 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:00 PM  1000      6696   26.00    1.00    0.00    5.00   27.00     4  rviz2
+
+03:25:00 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:01 PM  1000      6696   28.00    2.00    0.00    5.00   30.00     4  rviz2
+
+03:25:01 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:02 PM  1000      6696   23.00    3.00    0.00    5.00   26.00     6  rviz2
+
+03:25:02 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:03 PM  1000      6696   27.00    3.00    0.00    5.00   30.00     1  rviz2
+
+03:25:03 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:04 PM  1000      6696   23.00    2.00    0.00    5.00   25.00     5  rviz2
+
+03:25:04 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:05 PM  1000      6696   30.00    3.00    0.00    6.00   33.00     1  rviz2
+
+03:25:05 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:06 PM  1000      6696   27.00    2.00    0.00    4.00   29.00     7  rviz2
+
+03:25:06 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:07 PM  1000      6696   28.00    3.00    0.00    6.00   31.00     3  rviz2
+
+03:25:07 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:08 PM  1000      6696   26.00    3.00    0.00    5.00   29.00     0  rviz2
+
+03:25:08 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:09 PM  1000      6696   28.00    2.00    0.00    6.00   30.00     3  rviz2
+
+03:25:09 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:10 PM  1000      6696   23.00    2.00    0.00    7.00   25.00     5  rviz2
+
+03:25:10 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:11 PM  1000      6696   23.00    3.00    0.00    7.00   26.00     6  rviz2
+
+03:25:11 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:12 PM  1000      6696   24.00    2.00    0.00    9.00   26.00     7  rviz2
+
+03:25:12 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:13 PM  1000      6696   26.00    1.00    0.00    9.00   27.00     0  rviz2
+
+03:25:13 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:14 PM  1000      6696   26.00    3.00    0.00    8.00   29.00     6  rviz2
+
+03:25:14 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:15 PM  1000      6696   24.00    3.00    0.00    9.00   27.00     2  rviz2
+
+03:25:15 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:16 PM  1000      6696   24.00    2.00    0.00    7.00   26.00     5  rviz2
+
+03:25:16 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:17 PM  1000      6696   25.00    2.00    0.00    7.00   27.00     6  rviz2
+
+03:25:17 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+03:25:18 PM  1000      6696   25.00    2.00    0.00    9.00   27.00     2  rviz2
+
+Average:      UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+Average:     1000      6696   26.31    2.36    0.00    6.04   28.67     -  rviz2
